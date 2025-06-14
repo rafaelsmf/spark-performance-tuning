@@ -13,6 +13,7 @@ object FixingDataSkews {
 
   // deactivate broadcast joins
   spark.conf.set("spark.sql.autoBroadcastJoinThreshold", -1)
+  spark.conf.set("spark.sql.adaptive.enabled", false)
   import spark.implicits._
 
   val guitars: Dataset[Guitar] = Seq.fill(40000)(DataGenerator.randomGuitar()).toDS
