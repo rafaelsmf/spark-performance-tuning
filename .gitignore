@@ -231,3 +231,8 @@ spark-warehouse/
 # Daniel added
 src/main/resources/generated/
 .bsp
+
+# For Challenge
+challenge/infrastructure/minikube/terraform.tfstate
+challenge/infrastructure/minikube/terraform.tfstate.backup
+challenge/infrastructure/k8s/terraform.tfstate
