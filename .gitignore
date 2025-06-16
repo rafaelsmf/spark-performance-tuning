@@ -236,3 +236,10 @@ src/main/resources/generated/
 challenge/infrastructure/minikube/terraform.tfstate
 challenge/infrastructure/minikube/terraform.tfstate.backup
 challenge/infrastructure/k8s/terraform.tfstate
+/challenge/infrastructure/k8s/.terraform/providers/registry.terraform.io/gavinbunney/kubectl/1.19.0/windows_386/README.md
+/challenge/infrastructure/k8s/.terraform/providers/registry.terraform.io/hashicorp/helm/3.0.0-pre2/windows_386/terraform-provider-helm_v3.0.0-pre2_x5.exe
+/challenge/infrastructure/k8s/.terraform/providers/registry.terraform.io/gavinbunney/kubectl/1.19.0/windows_386/terraform-provider-kubectl_v1.19.0.exe
+/challenge/infrastructure/k8s/terraform.tfstate.backup
+/challenge/infrastructure/k8s/.terraform/providers/registry.terraform.io/hashicorp/helm/3.0.0-pre2/windows_386/LICENSE.txt
+/challenge/infrastructure/k8s/.terraform/providers/registry.terraform.io/gavinbunney/kubectl/1.19.0/windows_386/LICENSE
+/challenge/infrastructure/k8s/.terraform.lock.hcl
