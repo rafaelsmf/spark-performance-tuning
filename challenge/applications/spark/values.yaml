@@ -109,7 +109,7 @@ diagnosticMode:
 image:
   registry: docker.io
   repository: bitnami/spark
-  tag: 4.0.0-debian-12-r0
+  tag: 4.0.0
   digest: ""
   ## Specify a imagePullPolicy
   ## ref: https://kubernetes.io/docs/concepts/containers/images/#pre-pulled-images
@@ -153,7 +153,7 @@ master:
     cluster: 7077
   ## @param master.automountServiceAccountToken Mount Service Account token in pod
   ##
-  automountServiceAccountToken: false
+  automountServiceAccountToken: true
   ## @param master.hostAliases Deployment pod host aliases
   ## https://kubernetes.io/docs/concepts/services-networking/add-entries-to-pod-etc-hosts-with-host-aliases/
   ##
@@ -178,7 +178,11 @@ master:
   ##  - name: SPARK_DAEMON_JAVA_OPTS
   ##    value: -Dx=y
   ##
-  extraEnvVars: []
+  extraEnvVars:
+    - name: HOME
+      value: /tmp
+    - name: USER
+      value: spark
   ## @param master.extraEnvVarsCM Name of existing ConfigMap containing extra env vars for master nodes
   ##
   extraEnvVarsCM: ""
@@ -213,7 +217,7 @@ master:
   ## @param master.containerSecurityContext.seccompProfile.type Set container's Security Context seccomp profile
   ##
   containerSecurityContext:
-    enabled: true
+    enabled: false
     seLinuxOptions: {}
     runAsUser: 1001
     runAsGroup: 1001
@@ -308,10 +312,16 @@ master:
   lifecycleHooks: {}
   ## @param master.extraVolumes Optionally specify extra list of additional volumes for the master pod(s)
   ##
-  extraVolumes: []
+  extraVolumes:
+    - name: ivy-cache
+      emptyDir: {}
+
   ## @param master.extraVolumeMounts Optionally specify extra list of additional volumeMounts for the master container(s)
   ##
-  extraVolumeMounts: []
+  extraVolumeMounts:
+    - name: ivy-cache
+      mountPath: /tmp/.ivy2
+
   ## @param master.extraVolumeClaimTemplates Optionally specify extra list of volumesClaimTemplates for the master statefulset
   ##
   extraVolumeClaimTemplates: []
@@ -538,7 +548,11 @@ worker:
   ##  - name: SPARK_DAEMON_JAVA_OPTS
   ##    value: -Dx=y
   ##
-  extraEnvVars: []
+  extraEnvVars:
+    - name: HOME
+      value: /tmp
+    - name: USER
+      value: spark
   ## @param worker.extraEnvVarsCM Name of existing ConfigMap containing extra env vars for worker nodes
   ##
   extraEnvVarsCM: ""
@@ -578,7 +592,7 @@ worker:
   ## @param worker.containerSecurityContext.seccompProfile.type Set container's Security Context seccomp profile
   ##
   containerSecurityContext:
-    enabled: true
+    enabled: false
     seLinuxOptions: {}
     runAsUser: 1001
     runAsGroup: 1001
@@ -677,10 +691,14 @@ worker:
   lifecycleHooks: {}
   ## @param worker.extraVolumes Optionally specify extra list of additional volumes for the worker pod(s)
   ##
-  extraVolumes: []
+  extraVolumes:
+    - name: ivy-cache
+      emptyDir: {}
   ## @param worker.extraVolumeMounts Optionally specify extra list of additional volumeMounts for the master container(s)
   ##
-  extraVolumeMounts: []
+  extraVolumeMounts:
+    - name: ivy-cache
+      mountPath: /tmp/.ivy2
   ## @param worker.extraVolumeClaimTemplates Optionally specify extra list of volumesClaimTemplates for the worker statefulset
   ##
   extraVolumeClaimTemplates: []
@@ -701,7 +719,7 @@ worker:
       cpu: 1
       memory: 1024Mi
     limits:
-      cpu: 2
+      cpu: 1
       memory: 2048Mi
   ##
   # resources: {}
@@ -856,11 +874,11 @@ worker:
   ## @param worker.autoscaling.targetMemory Target Memory utilization percentage
   ##
   autoscaling:
-    enabled: false
-    minReplicas: ""
-    maxReplicas: 5
-    targetCPU: 50
-    targetMemory: ""
+    enabled: true
+    minReplicas: 1
+    maxReplicas: 2
+    targetCPU: 60
+    targetMemory: 60
 ## @section Security parameters
 ##
 
@@ -1121,7 +1139,7 @@ serviceAccount:
   annotations: {}
   ## @param serviceAccount.automountServiceAccountToken Automount API credentials for a service account.
   ##
-  automountServiceAccountToken: false
+  automountServiceAccountToken: true
 ## @section Metrics parameters
 ##
 

@@ -2,7 +2,7 @@ annotations:
   category: Infrastructure
   images: |
     - name: spark
-      image: docker.io/bitnami/spark:4.0.0-debian-12-r0
+      image: docker.io/bitnami/spark:4.0.0
   licenses: Apache-2.0
   tanzuCategory: service
 apiVersion: v2
