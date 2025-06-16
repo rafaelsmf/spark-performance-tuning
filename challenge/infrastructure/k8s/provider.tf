@@ -5,7 +5,7 @@ provider "kubectl" {
 
 # https://registry.terraform.io/providers/hashicorp/helm/latest/docs
 provider "helm" {
-  kubernetes {
+  kubernetes = {
     config_path = var.kube_config_path
   }
 }
