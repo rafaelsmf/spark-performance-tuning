@@ -3,9 +3,9 @@ name := "spark-performance-tuning"
 
 version := "0.3"
 
-scalaVersion := "2.13.16"
+scalaVersion := "2.12.20"
 
-val sparkVersion = "4.0.0"
+val sparkVersion = "3.5.5"
 val log4jVersion = "2.24.3"
 val zstdJniVersion = "1.5.6-5"
 
@@ -18,7 +18,8 @@ resolvers ++= Seq(
 libraryDependencies ++= Seq(
   "org.apache.spark" %% "spark-core" % sparkVersion,
   "org.apache.spark" %% "spark-sql" % sparkVersion,
-  "org.apache.hadoop" % "hadoop-aws" % "3.4.1",
+  "org.apache.spark" %% "spark-mllib" % sparkVersion, // needed for Vector data type
+  "com.google.cloud.spark" %% "spark-bigquery-with-dependencies" % "0.42.4",
   // logging
   "org.apache.logging.log4j" % "log4j-api" % log4jVersion,
   "org.apache.logging.log4j" % "log4j-core" % log4jVersion,
