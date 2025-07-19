@@ -183,6 +183,11 @@ master:
       value: /tmp
     - name: USER
       value: spark
+    - name: GOOGLE_APPLICATION_CREDENTIALS
+      valueFrom:
+        - secretKeyRef:
+          - name: gcp-secrets
+          - key: gcp-credentials.json
   ## @param master.extraEnvVarsCM Name of existing ConfigMap containing extra env vars for master nodes
   ##
   extraEnvVarsCM: ""
